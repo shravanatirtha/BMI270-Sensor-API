@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>OIS_README.md - Sensor Project Documentation</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+
+        <script src="../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">Sensor Project Documentation</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href=".." class="nav-link">Home</a>
+                            </li>
+                            <li class="navitem active">
+                                <a href="./" class="nav-link">OIS_README.md</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../README.md" class="nav-link">README.md</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Other Pages <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../example.md" class="dropdown-item">Example Page</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href=".." class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" class="nav-link disabled">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#sensor-api-for-the-bmi2s-ois-interface" class="nav-link">Sensor API for the BMI2's OIS interface</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#table-of-contents" class="nav-link">Table of Contents</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="sensor-api-for-the-bmi2s-ois-interface">Sensor API for the BMI2's OIS interface</h1>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="#Intro">Introduction</a></li>
+<li><a href="#Integration">Integration details</a></li>
+<li><a href="#file">Driver files information</a></li>
+<li><a href="#interface">Sensor interfaces</a></li>
+<li><a href="#examples">Integration Examples</a></li>
+</ul>
+<h3 id="introduction">Introduction<a name=Intro></a></h3>
+<p>This package contains Bosch Sensortec's BMI2 Sensor API.</p>
+<h3 id="integration-details">Integration details<a name=Integration></a></h3>
+<ul>
+<li>Integrate <em>bmi2.c</em>, <em>bmi2.h</em>, <em>bmi2_ois.c</em>, <em>bmi2_ois.h</em>, <em>bmi2_defs.h</em> and the required variant files in your project.</li>
+<li>User has to include <em>bmi2_ois.h</em> in the code to call OIS related APIs and a <em>variant header</em> for initialization as
+well as BMI2 related API calls, as shown below:</li>
+</ul>
+<pre><code class="language-c">#include &quot;bmi270.h&quot;
+#include &quot;bmi2_ois.h&quot;
+````
+### Driver files information&lt;a name=file&gt;&lt;/a&gt;
+- *_bmi2_ois.c_*
+   * This file has function definitions of OIS related API interfaces.
+- *_bmi2_ois.h_*
+   * This header file has necessary include files, function declarations, required to make OIS related API calls.
+
+### Sensor interfaces&lt;a name=interface&gt;&lt;/a&gt;
+#### _Host Interface_
+- I2C interface
+- SPI interface  
+_Note: By default, the interface is I2C._
+
+#### _OIS Interface_
+- SPI interface  
+
+### Integration examples&lt;a name=examples&gt;&lt;/a&gt;
+#### Configuring SPI/I2C for host interface.
+To configure host interface, an instance of the bmi2_dev structure should be
+created for initializing BMI2 sensor. &quot;_Refer **README** for initializing BMI2 
+sensor._&quot;
+
+#### Configuring SPI for OIS interface.
+To configure OIS interface, an instance of the bmi2_ois_dev structure should be
+created. The following parameters are required to be updated in the structure,
+by the user.
+
+Parameters    | Details
+--------------|-----------------------------------
+_intf_ptr_    | device address reference of SPI interface        
+_ois_read_    | read through SPI interface
+_ois_write_   | read through SPI interface
+_ois_delay_us_| delay in micro seconds
+_acc_en_      | for enabling accelerometer
+_gyr_en_      | for enabling gyroscope   
+
+``` c
+int8_t rslt = 0;
+
+struct bmi2_ois_dev ois_dev = {  
+        .intf_ptr = intf_ptr will contain the chip selection info of SPI CS pin,  
+        .ois_read = user_spi_reg_read,
+        .ois_write = user_spi_reg_write,
+        .ois_delay_us = user_delay_us
+};
+</code></pre>
+<blockquote>
+<p><strong><em>Important Note</em></strong>: For initializing and configuring BMI2 sensors, which is 
+done through host interface, the API's are to be used from bmi2.c file. Rest 
+of the API's, for OIS configurations and the reading of OIS data, which is done 
+through OIS interface, are to be used from bmi2_ois.c file.</p>
+</blockquote>
+<h5 id="get-accelerometer-and-gyroscope-data-through-ois-interface">Get accelerometer and gyroscope data through OIS interface</h5>
+<pre><code class="language-c">int8_t rslt;
+/* Array to enable sensor through host interface */
+uint8_t sens_list[2] = {BMI2_ACCEL, BMI2_GYRO};
+/* Array to enable sensor through OIS interface */
+uint8_t sens_sel[2] = {BMI2_OIS_ACCEL, BMI2_OIS_GYRO};
+/* Initialize the configuration structure */
+struct bmi2_sens_config sens_cfg = {0};
+
+/* Initialize BMI2 */
+rslt = bmi2_init(&amp;dev);
+if (rslt != BMI2_OK) {
+        printf(&quot;Error: %d\n&quot;, rslt);
+        return;
+}
+
+/* Enable accelerometer and gyroscope through host interface */
+rslt = bmi270_sensor_enable(sens_list, 2, &amp;dev);
+if (rslt != BMI2_OK) {
+        printf(&quot;Error: %d\n&quot;, rslt);
+        return;
+}
+
+/* Setting of OIS Range is done through host interface */
+/* Select the gyroscope sensor for OIS Range configuration */
+sens_cfg.type = BMI2_GYRO;
+
+/* Get gyroscope configuration */
+rslt = bmi2_get_sensor_config(&amp;sens_cfg, 1, &amp;dev);
+if (rslt != BMI2_OK) {
+        printf(&quot;Error: %d\n&quot;, rslt);
+        return;
+}
+
+/* Set the desired OIS Range */
+sens_cfg.cfg.gyr.ois_range = BMI2_GYR_OIS_2000;
+
+/* Set gyroscope configuration for default values */
+rslt = bmi2_set_sensor_config(&amp;sens_cfg, 1, &amp;dev);
+if (rslt != BMI2_OK) {
+         printf(&quot;Error: %d\n&quot;, rslt);
+         return;
+}
+
+/* Enable OIS through host interface */
+rslt = bmi2_set_ois_interface(BMI2_ENABLE, &amp;dev);
+if (rslt != BMI2_OK) {
+         printf(&quot;Error: %d\n&quot;, rslt);
+         return;
+}
+
+/* Disable Advance Power Save Mode through host interface */
+rslt = bmi2_set_adv_power_save(BMI2_DISABLE, &amp;dev);
+if (rslt != BMI2_OK) {
+         printf(&quot;Error: %d\n&quot;, rslt);
+         return;
+}
+
+/* Get configurations for OIS through OIS interface for default values */
+rslt = bmi2_ois_get_config(&amp;ois_dev);
+if (rslt != BMI2_OK) {
+         printf(&quot;Error: %d\n&quot;, rslt);
+         return;
+}
+
+/* Enable accelerometer and gyroscope for reading OIS data */
+ois_dev.acc_en = BMI2_ENABLE;
+ois_dev.gyr_en = BMI2_ENABLE;
+
+/* Set configurations for OIS through OIS interface */
+rslt = bmi2_ois_set_config(&amp;ois_dev);
+if (rslt == BMI2_OK) {
+        /* Get OIS accelerometer and gyroscope data through OIS interface */
+        rslt = bmi2_ois_read_data(sens_sel, 2, &amp;ois_dev);
+        if (rslt == BMI2_OK) {
+                /* Print accelerometer data */
+                printf(&quot;OIS Accel x-axis = %d\t&quot;, ois_dev.acc_data.x);
+                printf(&quot;OIS Accel y-axis= %d\t&quot;, ois_dev.acc_data.y);
+                printf(&quot;OIS Accel z-axis = %d\r\n&quot;, ois_dev.acc_data.z);        
+
+                /* Print gyroscope data */
+                printf(&quot;OIS Gyro x-axis = %d\t&quot;, ois_dev.gyr_data.x);
+                printf(&quot;OIS Gyro y-axis= %d\t&quot;, ois_dev.gyr_data.y);
+                printf(&quot;OIS Gyro z-axis = %d\r\n&quot;, ois_dev.gyr_data.z);
+        }        
+}
+
+if (rslt != BMI2_OK) {
+         printf(&quot;Error code: %d\n&quot;, rslt);
+         return;
+}
+
+/* Enable Advance Power Save Mode through host interface */
+rslt = bmi2_set_adv_power_save(BMI2_ENABLE, &amp;dev);
+if (rslt != BMI2_OK) {
+        printf(&quot;Error: %d\n&quot;, rslt);
+        return;
+}
+</code></pre></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js" defer></script>
+        <script src="../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
