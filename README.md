@@ -1,7 +1,5 @@
 BMI270 Sensor API
-
 > This package contains the sensor APIs for the BMI270 sensor
-
 ## Sensor Overview
 The BMI270 is a small, low power, low noise inertial measurement unit designed for use in mobile applications like augmented reality or indoor navigation which require highly accurate, real-time sensor data.
 
